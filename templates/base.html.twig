@@ -1,17 +1,60 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <script src="https://cdn.tailwindcss.com"></script>
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body class="bg-zinc-300 flex ">
+
+<aside class="bg-[#F8FFE5] shadow-xl  w-64 ml-6 h-screen rounded-3xl flex flex-col p-5 space-y-4">
+    <div class="flex items-center space-x-3">
+        <a href="{{ path('app_accueil') }}" >
+            <i class='bx bx-grid-alt text-xl'></i>
+            <span class="font-extrabold ml-8 text-xl text-gray-700">DashBoard</span>
+        </a>
+
+    </div>
+    {% block nav %}
+        <nav class="flex-1 space-y-2 mt-4 mb-4"> <!-- Ajout de marges ici -->
+            <a href="{{ path('app_dashboard_index') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-[#06D6A0] hover:text-white rounded-lg transition active:bg-[#06D6A0] active:text-white">
+                <i class='bx bx-grid-alt text-xl'></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ path('app_sport_index') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-[#06D6A0] hover:text-white rounded-lg transition">
+                <i class='bx bx-user text-xl'></i>
+                <span>Sport</span>
+            </a>
+            <a href="{{ path('app_argent_index') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-[#06D6A0] hover:text-white rounded-lg transition">
+                <i class='bx bx-history text-xl'></i>
+                <span>Argent</span>
+            </a>
+            <a href="{{ path('app_voiture_index') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-[#06D6A0] hover:text-white rounded-lg transition">
+                <i class='bx bx-bar-chart text-xl'></i>
+                <span>Voiture</span>
+            </a>
+        </nav>
+    {% endblock %}
+    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-[#06D6A0] hover:text-white rounded-lg transition">
+        <i class='bx bx-log-out text-xl'></i>
+        <span>Settings</span>
+    </a>
+</aside>
+
+<main class="flex-1 p-6">
+    {% block main %}{% endblock %}
+</main>
+
+{% block footer %}
+{% endblock %}
+
+</body>
 </html>

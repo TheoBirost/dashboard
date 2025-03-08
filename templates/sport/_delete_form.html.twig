@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('app_sport_delete', {'id': sport.id}) }}"
+      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ?');"
+      class="inline-block">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sport.id) }}">
+    <button class="bg-[#a31621] hover:bg-[#81101a] text-white font-bold py-2 px-4 rounded transition duration-300">
+        Supprimer
+    </button>
+</form>

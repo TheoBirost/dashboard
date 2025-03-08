@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Sport{% endblock %}
+
+{% block main %}
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit Sport</h1>
+
+        {# Formulaire d'édition #}
+        {{ include('sport/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <div class="mt-6">
+            <a href="{{ path('app_sport_index') }}"
+               class="bg-[#06D6A0] hover:bg-[#05c093] text-white font-bold py-2 px-4 rounded transition duration-300">
+                ← Back to list
+            </a>
+        </div>
+
+        <hr class="my-6 border-gray-300">
+
+        {# Formulaire de suppression #}
+
+        {{ include('sport/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

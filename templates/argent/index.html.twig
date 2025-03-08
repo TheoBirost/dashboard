@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Argent Index{% endblock %}
+
+{% block main %}
+    <div class="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">📊 Gestion des Finances</h1>
+
+        <div class="overflow-hidden rounded-lg border border-gray-300 shadow-lg">
+            <table class="w-full border-collapse">
+                <thead>
+                <tr class="bg-gray-800 text-white uppercase text-sm tracking-wider">
+
+                    <th class="border border-gray-700 px-6 py-3 text-left">Revenus (€)</th>
+                    <th class="border border-gray-700 px-6 py-3 text-left">Dépenses (€)</th>
+                    <th class="border border-gray-700 px-6 py-3 text-left">Solde (€)</th>
+                    <th class="border border-gray-700 px-6 py-3 text-left">Date</th>
+                    <th class="border border-gray-700 px-6 py-3 text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody class="bg-gray-50">
+                {% for argent in argents %}
+                    <tr class="hover:bg-gray-200 transition duration-300">
+
+                        <td class="border border-gray-300 px-6 py-4 text-green-600 font-semibold">+ {{ argent.revenus }}</td>
+                        <td class="border border-gray-300 px-6 py-4 text-red-600 font-semibold">- {{ argent.depenses }}</td>
+                        <td class="border border-gray-300 px-6 py-4 {% if argent.solde < 0 %}text-red-600{% else %}text-green-600{% endif %} font-bold">
+                            {{ argent.solde }}
+                        </td>
+                        <td class="border border-gray-300 px-6 py-4">{{ argent.date|date('j F Y') }}</td>
+                        <td class="border border-gray-300 px-6 py-4 flex justify-center space-x-3">
+                            <a href="{{ path('app_argent_show', {'id': argent.id}) }}"
+                               class="px-4 py-2 bg-[#06D6A0] hover:bg-[#05c093] text-white font-semibold rounded-full shadow-md transition duration-300 flex items-center">
+                                👁️ Voir
+                            </a>
+                            <a href="{{ path('app_argent_edit', {'id': argent.id}) }}"
+                               class="px-4 py-2 bg-[#1f1c2c] hover:bg-[#171522] text-white font-semibold rounded-full shadow-md transition duration-300 flex items-center">
+                                ✏️ Modifier
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-6 text-gray-500 text-lg">Aucune transaction enregistrée</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="{{ path('app_argent_new') }}"
+               class="px-8 py-3 bg-[#06D6A0] hover:bg-[#05c093] text-white text-lg font-bold rounded-full shadow-xl transition duration-300 flex items-center justify-center mx-auto w-fit">
+                 Ajouter une transaction
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sport{% endblock %}
+
+{% block main %}
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Sport</h1>
+
+        <div class="overflow-x-auto">
+            <table class="w-full border border-gray-300 shadow-sm">
+                <tbody>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2 text-left">Id</th>
+                    <td class="border border-gray-300 px-4 py-2">{{ sport.id }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Type de sport</th>
+                    <td class="border border-gray-300 px-4 py-2">{{ sport.typesport }}</td>
+                </tr>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-4 py-2 text-left">Date</th>
+                    <td class="border border-gray-300 px-4 py-2">{{ sport.datesport|date('j F Y') }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Description</th>
+                    <td class="border border-gray-300 px-4 py-2">{{ sport.description }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6 flex space-x-4">
+            <a href="{{ path('app_sport_index') }}"
+               class="bg-[#06D6A0] hover:bg-[#05c093] text-white font-bold py-2 px-4 rounded transition duration-300">
+                ← Retour à la liste
+            </a>
+
+            <a href="{{ path('app_sport_edit', {'id': sport.id}) }}"
+               class="bg-[#1f1c2c] hover:bg-[#171522] text-white font-bold py-2 px-4 rounded transition duration-300">
+                ✏️ Éditer
+            </a>
+        </div>
+
+        <div class="mt-4">
+            <form method="post" action="{{ path('app_sport_delete', {'id': sport.id}) }}"
+                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sport ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sport.id) }}">
+                <button type="submit"
+                        class="bg-[#a31621] hover:bg-[#81101a] text-white font-bold py-2 px-4 rounded transition duration-300">
+                    ❌ Supprimer
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

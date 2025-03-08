@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Argent{% endblock %}
+
+{% block main %}
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">💰 Détails de la Transaction</h1>
+
+        <div class="overflow-hidden rounded-lg border border-gray-300 shadow-lg">
+            <table class="w-full border-collapse">
+                <tbody class="bg-gray-50">
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-6 py-3 text-left">ID</th>
+                    <td class="border border-gray-300 px-6 py-3">{{ argent.id }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 px-6 py-3 text-left">Revenus (€)</th>
+                    <td class="border border-gray-300 px-6 py-3 text-green-600 font-semibold">+ {{ argent.revenus }}</td>
+                </tr>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-6 py-3 text-left">Dépenses (€)</th>
+                    <td class="border border-gray-300 px-6 py-3 text-red-600 font-semibold">- {{ argent.depenses }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 px-6 py-3 text-left">Solde (€)</th>
+                    <td class="border border-gray-300 px-6 py-3 {% if argent.solde < 0 %}text-red-600{% else %}text-green-600{% endif %} font-bold">
+                        {{ argent.solde }}
+                    </td>
+                </tr>
+                <tr class="bg-gray-200">
+                    <th class="border border-gray-300 px-6 py-3 text-left">Date</th>
+                    <td class="border border-gray-300 px-6 py-3">{{ argent.date|date('j F Y') }}</td>
+                </tr>
+                <tr>
+                    <th class="border border-gray-300 px-6 py-3 text-left">Description</th>
+                    <td class="border border-gray-300 px-6 py-3">{{ argent.description }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6 flex space-x-4">
+            <a href="{{ path('app_argent_index') }}"
+               class="px-4 py-2 bg-[#06D6A0] hover:bg-[#05c093] text-white font-bold rounded-full shadow-md transition duration-300">
+                ← Retour à la liste
+            </a>
+            <a href="{{ path('app_argent_edit', {'id': argent.id}) }}"
+               class="px-4 py-2 bg-[#1f1c2c] hover:bg-[#171522] text-white font-bold rounded-full shadow-md transition duration-300">
+                ✏️ Modifier
+            </a>
+        </div>
+
+        <div class="mt-6">
+            {{ include('argent/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

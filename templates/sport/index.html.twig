@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sport Index{% endblock %}
+
+{% block main %}
+    <div class="max-w-5xl mx-auto p-8 bg-white shadow-2xl rounded-lg border border-gray-200">
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center uppercase tracking-wide">Sport Index</h1>
+
+        <div class="overflow-hidden rounded-lg border border-gray-300 shadow-lg">
+            <table class="w-full border-collapse">
+                <thead>
+                <tr class="bg-gray-800 text-white uppercase text-sm tracking-wider">
+                    <th class="border border-gray-700 px-6 py-3 text-left">Sport</th>
+                    <th class="border border-gray-700 px-6 py-3 text-left">Date</th>
+                    <th class="border border-gray-700 px-6 py-3 text-left">Description</th>
+                    <th class="border border-gray-700 px-6 py-3 text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody class="bg-gray-50">
+                {% for sport in sports %}
+                    <tr class="hover:bg-gray-200 transition duration-300">
+                        <td class="border border-gray-300 px-6 py-4">{{ sport.typesport }}</td>
+                        <td class="border border-gray-300 px-6 py-4">{{ sport.datesport|date('j M Y') }}</td>
+                        <td class="border border-gray-300 px-6 py-4">{{ sport.description }}</td>
+                        <td class="border border-gray-300 px-6 py-4 flex justify-center space-x-3">
+                            <a href="{{ path('app_sport_show', {'id': sport.id}) }}"
+                               class="px-4 py-2 bg-[#06D6A0] hover:bg-[#05c093] text-white font-semibold rounded-full shadow-md transition duration-300 flex items-center">
+                                👁️ Voir
+                            </a>
+                            <a href="{{ path('app_sport_edit', {'id': sport.id}) }}"
+                               class="px-4 py-2 bg-[#1f1c2c] hover:bg-[#171522] text-white font-semibold rounded-full shadow-md transition duration-300 flex items-center">
+                                ✏️ Modifier
+                            </a>
+                            <form method="post" action="{{ path('app_sport_delete', {'id': sport.id}) }}"
+                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce sport ?');"
+                                  class="inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sport.id) }}">
+                                <button type="submit"
+                                        class="px-4 py-2 bg-[#a31621] hover:bg-[#81101a] text-white font-semibold rounded-full shadow-md transition duration-300 flex items-center">
+                                    ❌ Supprimer
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-6 text-gray-500 text-lg">Aucun sport trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="{{ path('app_sport_new') }}"
+               class="px-8 py-3 bg-[#06D6A0] hover:bg-[#05c093] text-white text-lg font-bold rounded-full shadow-xl transition duration-300 flex items-center justify-center mx-auto w-fit">
+                 Ajouter un sport
+            </a>
+        </div>
+    </div>
+{% endblock %}
